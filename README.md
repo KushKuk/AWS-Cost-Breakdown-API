@@ -52,7 +52,7 @@ The following endpoints are available:
 ```bash
 git clone <your-repository-link>
 cd <your-repository-directory>
-
+```
 ### 2. **Create a Virtual Environment**
 
 It's highly recommended to use a virtual environment to manage project dependencies.
