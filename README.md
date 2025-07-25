@@ -62,18 +62,18 @@ For **Unix/macOS**:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-
+```
 For **Windows**:
 
 ```bash
 python -m venv venv
 venv\Scripts\activate
-
+```
 ### 3. **Install Dependencies**
 
 ```bash
 pip install -r requirements.txt
-
+```
 ### 4. **Set AWS Credentials**
 
 Before running the application, ensure that your AWS credentials are set up. You can do this by:
