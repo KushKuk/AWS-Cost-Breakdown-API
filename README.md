@@ -1,143 +1,104 @@
-AWS Cost Breakdown API
-This project provides a simple REST API built with Python and FastAPI to fetch and display AWS cost breakdown data using the Boto3 SDK.
+# **AWS Cost Breakdown API**
 
-Objective
+This project provides a simple REST API built with **Python** and **FastAPI** to fetch and display AWS cost breakdown data using the **Boto3 SDK**.
+
+---
+
+## **Objective**
+
 The primary goal of this application is to provide clear, structured JSON data for:
 
-Total monthly cost.
+- **Total monthly cost**
+- **Daily cost breakdown**
+- **Cost breakdown by service**
+- **Costs specifically for running EC2 instances**
 
-Daily cost breakdown.
+---
 
-Cost breakdown by service.
+## **Features**
 
-Costs specifically for running EC2 instances.
+- **FastAPI Backend**: A modern, fast (high-performance) web framework for building APIs.
+- **Boto3 SDK**: The AWS SDK for Python to interact with AWS services.
+- **AWS Cost Explorer**: The underlying AWS service used to query cost and usage data.
+- **JSON Responses**: All data is served in a clean, easy-to-parse JSON format.
+- **Interactive API Docs**: FastAPI automatically generates interactive API documentation (using Swagger UI).
 
-Features
-FastAPI Backend: A modern, fast (high-performance) web framework for building APIs.
+---
 
-Boto3 SDK: The AWS SDK for Python to interact with AWS services.
+## **Endpoints**
 
-AWS Cost Explorer: The underlying AWS service used to query cost and usage data.
-
-JSON Responses: All data is served in a clean, easy-to-parse JSON format.
-
-Interactive API Docs: FastAPI automatically generates interactive API documentation (using Swagger UI).
-
-Endpoints
 The following endpoints are available:
 
-GET /: Welcome message.
+- **GET `/`** – Welcome message
+- **GET `/total-cost`** – Fetches the total estimated cost for the current month
+- **GET `/cost-by-service`** – Fetches the cost breakdown by AWS service for the current month
+- **GET `/daily-cost-trend`** – Fetches the daily cost trend for the current month
+- **GET `/ec2-cost`** – Fetches the cost specifically for running EC2 instances for the current month
 
-GET /total-cost: Fetches the total estimated cost for the current month.
+---
 
-GET /cost-by-service: Fetches the cost breakdown by AWS service for the current month.
+## **Prerequisites**
 
-GET /daily-cost-trend: Fetches the daily cost trend for the current month.
+- **Python 3.7+**
+- **An AWS account with programmatic access**
+- **AWS credentials** (Access Key ID and Secret Access Key) configured
 
-GET /ec2-cost: Fetches the cost specifically for running EC2 instances for the current month.
+---
 
-Prerequisites
-Python 3.7+
+## **Setup and Installation**
 
-An AWS account with programmatic access.
+### 1. **Clone the Repository**
 
-AWS credentials (Access Key ID and Secret Access Key) configured.
-
-Setup and Installation
-1. Clone the Repository
+```bash
 git clone <your-repository-link>
 cd <your-repository-directory>
 
-2. Create a Virtual Environment
+### 2. **Create a Virtual Environment**
+
 It's highly recommended to use a virtual environment to manage project dependencies.
 
-# For Unix/macOS
+For **Unix/macOS**:
+
+```bash
 python3 -m venv venv
 source venv/bin/activate
 
-# For Windows
+For **Windows**:
+
+```bash
 python -m venv venv
-.\venv\Scripts\activate
+venv\Scripts\activate
 
-3. Install Dependencies
-Install the required Python packages using pip.
+### 3. **Install Dependencies**
 
+```bash
 pip install -r requirements.txt
 
-4. Configure AWS Credentials
-The Boto3 library needs to be configured with your AWS credentials. The most common way is to use environment variables.
+### 4. **Set AWS Credentials**
 
-IMPORTANT: For the AWS Cost Explorer API, you must use the us-east-1 region, regardless of where your other resources are located.
+Before running the application, ensure that your AWS credentials are set up. You can do this by:
 
-# For Unix/macOS
-export AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID"
-export AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY"
-# If you are using temporary credentials, also set the session token
-# export AWS_SESSION_TOKEN="YOUR_AWS_SESSION_TOKEN"
-export AWS_DEFAULT_REGION="us-east-1"
+- Setting environment variables: `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+- Using the AWS credentials file: `~/.aws/credentials`
 
-# For Windows (Command Prompt)
-set AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID"
-set AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY"
-set AWS_DEFAULT_REGION="us-east-1"
+### 5. **Run the Application**
 
-# For Windows (PowerShell)
-$env:AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID"
-$env:AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY"
-$env:AWS_DEFAULT_REGION="us-east-1"
+```bash
+uv run uvicorn main:app --reload
+```
 
-Alternatively, you can configure credentials using an AWS credentials file (~/.aws/credentials).
+### 6. **Access the API**
 
-5. IAM Permissions
-Ensure the IAM user or role associated with your credentials has the necessary permissions to access the AWS Cost Explorer. A minimal policy would be:
+Open your web browser and navigate to `http://127.0.0.1:8000/docs` to access the interactive API documentation.
 
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ce:GetCostAndUsage"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
+---
 
-Running the Application
-Once the setup is complete, you can run the FastAPI application using Uvicorn.
+## **License**
 
-uvicorn main:app --reload
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
-main: refers to the Python file main.py.
+---
 
-app: refers to the FastAPI instance app created inside main.py.
+## **Contact**
 
---reload: enables auto-reloading, so the server will restart after code changes.
-
-The API will be available at http://127.0.0.1:8000.
-
-Using the API
-You can interact with the API using any HTTP client like curl, Postman, or your web browser.
-
-Interactive Documentation
-FastAPI provides automatically generated API documentation. Once the server is running, navigate to:
-
-Swagger UI: http://127.0.0.1:8000/docs
-
-ReDoc: http://127.0.0.1:8000/redoc
-
-These interfaces allow you to explore and test the API endpoints directly from your browser.
-
-Example curl Commands
-# Get Total Cost
-curl http://127.0.0.1:8000/total-cost
-
-# Get Cost by Service
-curl http://127.0.0.1:8000/cost-by-service
-
-# Get Daily Cost Trend
-curl http://127.0.0.1:8000/daily-cost-trend
-
-# Get EC2 Instance Cost
-curl http://127.0.0.1:8000/ec2-cost
+For any questions or feedback, please contact [kukrejakush@gmail.com](mailto:kukrejakush@gmail.com).
